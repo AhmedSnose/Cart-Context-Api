@@ -12,7 +12,7 @@ export default function SignUp() {
   const history = useHistory();
   const [isLoading , setIsLoading] = useState(false)
   const notify = (message) => toast.error(message);
-  const notifyDone = () => toast.success('You create a new account');
+  const notifyDone = () => toast.success('You Log In');
 
 
   const validate = values => {
@@ -53,7 +53,7 @@ export default function SignUp() {
 
       } catch (error) {
         console.log(error);
-        // alert(error.message)
+        alert(error.message)
         notify(error.message)
         setIsLoading(false)
 

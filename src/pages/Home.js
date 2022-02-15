@@ -42,9 +42,6 @@ function Home() {
     // console.log(inCart);
   }
 
-  const products = items.map((item)=>{
-    return <CardUI key={item.id} item={item} clickBtn={clickBtn} isCartPage={false} isUser={Boolean(user?.email)}/>
-  })
 
 
   // console.log(dataItems , "data");
@@ -54,7 +51,11 @@ function Home() {
       setIsLoading(false)
       // console.log(dataItems);
     },[dataItems])
-
+    
+    const products = items.map((item)=>{
+      return <CardUI key={item.id} item={item} clickBtn={clickBtn} isCartPage={false} isUser={Boolean(user?.email)}/>
+    })
+  
     // useEffect( async ()=>{
     //   const res = await axios.get('https://fb-clone-1c671-default-rtdb.firebaseio.com/items.json').catch(err=>console.log(err))
     //   const data = await res.data

@@ -21,7 +21,7 @@ function CardUI(props) {
   return (
     <Box className='my-3 text-center w-30' sx={{ minWidth: 275 }}>
      <Card variant="outlined">
-     <CardContent>
+     <CardContent className='h-[200px]'>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {name}
         </Typography>

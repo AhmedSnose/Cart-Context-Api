@@ -11,6 +11,7 @@ function SignIn() {
   const history = useHistory();
   const [isLoading , setIsLoading] = useState(false)
   const notify = (message) => toast.error(message);
+  const notifyDone = () => toast.success('You create a new account');
 
   // const refEmail = useRef();
   // const refPass = useRef();
@@ -64,11 +65,12 @@ function SignIn() {
       
       try{
         const user = await createUserWithEmailAndPassword(auth , values.email , values.password)
+        notifyDone()
         history.push("/");
 
       } catch (error) {
-        console.log(error);
         notify(error.message)
+        console.log(error);
         // alert(error.message)
         setIsLoading(false)
       }
