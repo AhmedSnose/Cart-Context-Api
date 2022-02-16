@@ -1,6 +1,4 @@
 import Ctx from './cart-context'
-// error  should i make request in Home Page Direct
-import FireBaseData from "./FireBaseData";
 import { useReducer } from 'react';
 
 const inCartFromlocalStorage = JSON.parse(localStorage.getItem('inCart'))
@@ -68,7 +66,6 @@ const cartReducer = (state , action)=>{
 };
 const CartProvider = (props)=>{
 
-    const data = FireBaseData()
     const [CartStates , dispatchCartStatesAction] = useReducer(cartReducer , deafualtState);
 
     const addToCartHandler = (item) => {
@@ -83,7 +80,6 @@ const CartProvider = (props)=>{
         
 
     const cartContext = {
-        dataItems:data,
 
         inCart:CartStates.inCart,
         TotalAmount:CartStates.TotalAmount,

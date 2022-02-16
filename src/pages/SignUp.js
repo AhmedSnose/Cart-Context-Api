@@ -53,8 +53,8 @@ export default function SignUp() {
 
       } catch (error) {
         console.log(error);
-        alert(error.message)
         notify(error.message)
+        alert(error.message)
         setIsLoading(false)
 
       }

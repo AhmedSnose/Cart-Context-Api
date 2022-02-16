@@ -71,7 +71,7 @@ function SignIn() {
       } catch (error) {
         notify(error.message)
         console.log(error);
-        // alert(error.message)
+        alert(error.message)
         setIsLoading(false)
       }
       

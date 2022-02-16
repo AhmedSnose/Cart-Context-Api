@@ -4,6 +4,7 @@ import LoadingSpinner from '../UI/LoadingSpinner'
 import ctx from '../store/cart-context'
 import {auth} from '../firebase/firebase-config'
 import {onAuthStateChanged } from 'firebase/auth'
+import {axios} from "../store/axios";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,12 +17,12 @@ function Home() {
   const [user , setUser] = useState({})
   const notify = () => toast.success("You add Item!");
 
+  // Work As useEffect
   onAuthStateChanged(auth , (currentUser)=>{
     setUser(currentUser)
   })
 
   const clickBtn = (item)=>{
-    // console.log("item");
     notify('you Add item')
     add({
       id:item.id,
@@ -30,40 +31,32 @@ function Home() {
       url:item.url,
       amount:item.amount
     })
-
-    // console.log({
-    //   id:item.id,
-    //   name:item.name,
-    //   price:item.price,
-    //   url:item.url,
-    //   amount:item.amount
-    // });
-
-    // console.log(inCart);
   }
 
 
 
   // console.log(dataItems , "data");
 
-  useEffect(()=>{
-      setItems(dataItems)
-      setIsLoading(false)
-      // console.log(dataItems);
-    },[dataItems])
+  // useEffect(()=>{
+  //     setItems(dataItems)
+  //     setIsLoading(false)
+  //     // console.log(dataItems);
+  //   },[dataItems])
+  
     
     const products = items.map((item)=>{
       return <CardUI key={item.id} item={item} clickBtn={clickBtn} isCartPage={false} isUser={Boolean(user?.email)}/>
     })
   
-    // useEffect( async ()=>{
-    //   const res = await axios.get('https://fb-clone-1c671-default-rtdb.firebaseio.com/items.json').catch(err=>console.log(err))
-    //   const data = await res.data
-    //   setItems(data)
-    //   setIsLoading(false)
-    //   console.log(data);
-    // },[])
+    useEffect( async ()=>{
+      const res = await axios.get('https://fb-clone-1c671-default-rtdb.firebaseio.com/items.json').catch(err=>console.log(err))
+      const data = await res.data
+      setItems(data)
+      setIsLoading(false)
+      // console.log(data);
+    },[])
 
+    
 
   if (isLoading){
     return <LoadingSpinner />
