@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { ArrowNarrowUpIcon , ArrowDownIcon  } from '@heroicons/react/solid'
 
 
 
@@ -35,21 +36,18 @@ function CardUI(props) {
         </Typography>
       </CardContent>
       <CardActions>
-       {!props.isCartPage && props.isUser && <Button onClick={upCliclHandler} className='' size="small">buy</Button>}
+        
+       {!props.isCartPage && props.isUser && <Button onClick={upCliclHandler} className='' size="small">Add To Cart</Button>}
        {!props.isUser && !props.isCartPage && <p>🔒</p>}
        {props.isCartPage && (
          <div className='flex justify-around '>
            <p>Amount {amount}</p>
-            <div className='ml-auto p-2 m-2'>
-              <span onClick={props.onAddItem}>➕</span>
-              <span onClick={props.onRemoveItem}>➖</span>
+            <div className='p-2 m-2'>
+              <span className='mr-1 cursor-pointer focus:ring-violet-300' onClick={props.onAddItem}>➕</span>
+              <span className='cursor-pointer focus:ring-violet-300' onClick={props.onRemoveItem}>➖</span>
             </div>
          </div>
        )}
-
-
-       
-
       </CardActions>
      </Card>
     </Box>

@@ -31,18 +31,7 @@ function Home() {
       url:item.url,
       amount:item.amount
     })
-  }
-
-
-
-  // console.log(dataItems , "data");
-
-  // useEffect(()=>{
-  //     setItems(dataItems)
-  //     setIsLoading(false)
-  //     // console.log(dataItems);
-  //   },[dataItems])
-  
+  } 
     
     const products = items.map((item)=>{
       return <CardUI key={item.id} item={item} clickBtn={clickBtn} isCartPage={false} isUser={Boolean(user?.email)}/>
@@ -73,5 +62,3 @@ function Home() {
 }
 
 export default Home
-
-// https://www.youtube.com/watch?v=35lXWvCuM8o&ab_channel=DevEd

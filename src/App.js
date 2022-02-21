@@ -41,9 +41,3 @@ function App() {
 }
 
 export default App;
-
-//  icons  material UI
-// https://unpkg.com/browse/@heroicons/vue@1.0.5/outline/
-// https://github.com/tailwindlabs/heroicons
-
-

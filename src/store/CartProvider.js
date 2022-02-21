@@ -1,4 +1,6 @@
 import Ctx from './cart-context'
+import CheckOutContext from './check-out-context'
+
 import { useReducer } from 'react';
 
 const inCartFromlocalStorage = JSON.parse(localStorage.getItem('inCart'))
@@ -11,7 +13,7 @@ const deafualtState = {
 
 
 const cartReducer = (state , action)=>{
-    console.log(inCartFromlocalStorage ,TotalAmountFromlocalStorage , "ss");
+    // console.log(inCartFromlocalStorage ,TotalAmountFromlocalStorage , "ss");
     if(action.typy === 'ADD'){
         const updatedTotalAmount = state.TotalAmount + action.item.price * action.item.amount;
 
@@ -43,6 +45,7 @@ const cartReducer = (state , action)=>{
     if(action.typy === 'REMOVE'){
 
         const existingCartItemIndex = state.inCart?.findIndex(item=>item.id===action.id)
+        
         const existingCartItem = state.inCart[existingCartItemIndex]
         const updatedTotalAmount = state.TotalAmount - existingCartItem.price 
         let updatedItems;
@@ -62,8 +65,31 @@ const cartReducer = (state , action)=>{
         }
     }
 
+    if(action.typy === 'REMOVE_ALL'){
+       localStorage.removeItem('inCart')
+       localStorage.removeItem('TotalAmount')
+        return {
+            inCart : [],
+            TotalAmount:0,
+        }
+    }
+
      return deafualtState
 };
+
+// CheckOutContext 
+const ChekOutDeafualtState ={isCheckOutOpen:false}
+
+const CheckOutReducer =(state, action)=>{
+    if(action.typy === 'toggle'){
+        return {
+            isCheckOutOpen:!state.isCheckOutOpen
+        }
+    }
+
+}
+
+
 const CartProvider = (props)=>{
 
     const [CartStates , dispatchCartStatesAction] = useReducer(cartReducer , deafualtState);
@@ -78,6 +104,9 @@ const CartProvider = (props)=>{
 
     }
         
+    const RemoveAllFromContext = ()=>{
+        dispatchCartStatesAction({typy:"REMOVE_ALL"})
+    }
 
     const cartContext = {
 
@@ -87,11 +116,27 @@ const CartProvider = (props)=>{
         add: addToCartHandler,
         remove:removeFromCartHandler,
 
+        removeAll:RemoveAllFromContext,
+
+    }
+
+    //  CheckOutContext
+    const [CheckOutState , dispatchCheckOutActions] = useReducer(CheckOutReducer , ChekOutDeafualtState);
+
+
+    const dispatchActionIsCheckOutOpenHandler = ()=>{
+        dispatchCheckOutActions({typy:'toggle'})
+    }
+    const CheckOutContextValue={
+        isCheckOutOpen:CheckOutState.isCheckOutOpen,
+        isCheckOutOpenHandler:dispatchActionIsCheckOutOpenHandler
     }
 
     return (
     <Ctx.Provider value={cartContext}>
-        {props.children}
+        <CheckOutContext.Provider value={CheckOutContextValue}>
+          {props.children}
+        </CheckOutContext.Provider>
     </Ctx.Provider>
     )
 }

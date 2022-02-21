@@ -34,11 +34,11 @@ function Nav() {
             {user?.email && <Link onClick={logOutHandler} to='/' className='cursor-pointer hover:text-gray-300 no-underline text-white'>
               Log Out
             </Link>}
-            {!user?.email && <Link to='/SignIn' className='cursor-pointer hover:text-gray-300 no-underline text-white'>
-              sign in
-            </Link>}
-            {!user?.email && <Link to='/SignUp' className='pr-3 cursor-pointer hover:text-gray-300 no-underline text-white'>
+            {!user?.email && <Link to='/SignUp' className='cursor-pointer hover:text-gray-300 no-underline text-white'>
               sign up
+            </Link>}
+            {!user?.email && <Link to='/SignIn' className='pr-3 cursor-pointer hover:text-gray-300 no-underline text-white'>
+              sign in
             </Link>}
             {user?.email && <Link to='/Cart' className='flex justify-between flex-col cursor-pointer hover:text-gray-300 no-underline text-white'>
                 <ShoppingCartIcon  className='w-5 mr-5'/>
